@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    
+        <!-- 모달창은 html body태그 제일 위에 위치하는게 제일 잘보임 -->
+        <div class="black-bg">                                         
+            <div class="white-bg">
+              <h4>로그인하세요</h4>
+              <form action="success.html">
+                <div class="my-3">
+                  <input type="text" class="form-control" id="email">
+                 </div>
+                 <div class="my-3">
+                   <input type="password" class="form-control" id="password">
+                 </div>
+                 <button type="submit" class="btn btn-primary" id="submit">전송</button>
+                 <button type="button" class="btn btn-danger" id="close">닫기</button>
+              </form> 
+            </div>
+        </div> 
+    
+
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Navbar</a>
+              <span class="badge bg-dark">Dark🌙</span>
+            </div>
+            <div class="progressbar"></div>
+        </nav>
+        
+
+        
+    
+        <div class="main-bg">
+            <h4>Shirts on Sale</h4>
+            <button type="button" class="btn btn-success" id="loginbtn">login</button>
+        </div>
+
+        <div style="height: 3000px;"></div>
+
+
+        <div class="lorem" style="width: 200px; height: 100px; overflow-y: scroll">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae voluptas voluptatum minus praesentium fugit debitis at, laborum ipsa itaque placeat sit, excepturi eius. Nostrum perspiciatis, eligendi quae consectetur praesentium exercitationem.
+        </div> 
+
+
+        <!-- js-->
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script>
+        
+    $('#loginbtn').on('click', function(){
+        $('.black-bg').addClass('show-modal');
+    })
+    
+    $('#close').on('click', function(){
+        $('.black-bg').removeClass('show-modal');
+    })
+
+    // badge 클릭 횟수가 홀수면 내부 글자를 light로 변경
+    // badge 클릭 횟수가 짝수면 내부 글자를 dark로 변경
+
+    var count = 0;
+
+    $('.badge').on('click', function(){
+        count += 1;
+        console.log(count)
+        if(count % 2 == 1){
+            $('.badge').html('Right☀️');
+            $('.badge').removeClass('bg-dark');
+            $('.badge').addClass('bg-light');
+            $('.badge').css('color', 'black');
+        }
+        else{
+            $('.badge').html('Dark🌙');
+            $('.badge').removeClass('bg-light');
+            $('.badge').addClass('bg-dark');
+            $('.badge').css('color', 'white');  
+        }
+    })
+
+    window.addEventListener('scroll', function(){
+        if(window.scrollY > 100){
+            $('.navbar-brand').css('font-size', '20px');
+        } else {
+            $('.navbar-brand').css('font-size', '32px');
+        }
+    });
+
+    // $(window).on('scroll', function(){
+    //     $(window).scrollTop(); // 현재 스크롤바 위치 출력
+    // })
+
+    // 스크롤 끝까지 내렸을때 alert 띄우기
+    // div의 스크롤바 내린 양 + 눈에 보이는 박스 높이 == div의 실제 높이
+    $('.lorem').on('scroll', function(){
+        var 스크롤양 = document.querySelector('.lorem').scrollTop;
+        var 실제높이 = document.querySelector('.lorem').scrollHeight;
+        var 눈에보이는높이 = document.querySelector('.lorem').clientHeight;
+
+        if(스크롤양 + 눈에보이는높이 > 실제높이 - 10){
+            alert('다 읽음');
+        }
+    })
+
+    // 웹페이지에서 스크롤퍼센트 보여지는 프로그레스바 만들기
+    $(window).on('scroll', function(){
+        var 스크롤양 = window.scrollY;
+        var 윈도우실제높이 = document.querySelector("html").scrollHeight;
+        var 눈에보이는윈도우높이 = document.querySelector("html").clientHeight;
+
+        // console.log(윈도우실제높이); //1374
+        // console.log(눈에보이는윈도우높이); //678
+        // console.log(스크롤양);
+        
+        // 최대 스크롤양 = 윈도우실제높이 - 눈에보이는윈도우높이
+        const percent = 스크롤양 / (윈도우실제높이 - 눈에보이는윈도우높이) * 100;
+
+        // 프로그레스바의 넓이를 위에서구한 퍼센트로 채워줌
+        document.querySelector(".progressbar").style.width = percent + "%";
+
+    })
+
+
+    </script>
+</body>
+</html>
